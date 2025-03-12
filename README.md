@@ -68,7 +68,7 @@ Profile Page - User workspace for managing blog projects.
 
 ### Mockups
 
-Provide visuals of your app's screens. You can use pictures of hand-drawn sketches, or wireframing tools like Figma.
+You can find the mockup in PDF format [here](./public/capstone-lowfi-mockup.pdf).
 
 ### Data
 
