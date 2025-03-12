@@ -1,4 +1,4 @@
-# Lumos - The AI Blog Writing Team
+# Project Title
 
 ## Overview
 
@@ -111,7 +111,6 @@ Bing Search API - For retrieving real-time research data.
 Day and Night mode
 AI-generated SEO recommendattions
 AI boice-based content drafting
-
 
 
 
