@@ -56,7 +56,7 @@ AI Blog Agent will integrate with the following APIs:
 
 ### Mockups
 
-You can find the mockup in PDF format [here](./public/capstone-lowfi-mockup.pdf).
+You can find the mockup in PDF format [here](./public/mockup.pdf).
 
 ### Data
 - Blogs (id, title, content, status: draft/published)
