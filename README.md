@@ -1,4 +1,4 @@
-# Lumos - The AI Blog Writing Team
+# AI Agent-cy - The AI Blog Writing Team
 
 ## Overview
 
