@@ -1,0 +1,45 @@
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/colors" as *;
+
+.charactercard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 20rem;
+    max-height: 30rem;
+    min-width: 15rem;
+    min-height: 25rem;
+    margin: 0.5rem;
+    border-radius: .5rem;
+    aspect-ratio: 13/8;
+    background-color: $primary-accent;
+    text-decoration: none;
+    transition: transform 0.2s ease-in-out;
+    &:hover {
+        transform: scale(1.05);
+    }
+    &--purple {
+        background-color: $primary-text;
+    }
+    &__image {
+        margin: 1rem;
+        max-width: 12rem;
+        max-height: 15rem;
+        min-width: 6rem;
+        min-height: 8rem;
+    }
+    &__content {
+        color: $primary-highlight;  
+        text-decoration: none;
+    }
+    &__title {
+        margin: 1rem;
+        font-family: Matchalatte, serif;
+        font-size: 2rem;
+    }
+    &__intro {
+        margin: 1rem;
+        font-size: 0.75rem;
+    }
+}
