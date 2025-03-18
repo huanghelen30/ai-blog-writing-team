@@ -2,7 +2,7 @@
 
 ## Overview
 
-The AI Blog Writing Assistant is an intelligent AI-powered system designed to function similar to a multi-agent workflow for generating high-quality blog posts. It consists of four specialized agents—Topic Generator, Researcher, Writer, and Editor—each performing a distinct role in the writing process. The system provides a seamless, step-by-step experience for users to create, refine, and finalize blog content efficiently.
+The AI Agent-cy Blog Writing Team is an intelligent AI-powered system designed to function similar to a multi-agent workflow for generating high-quality blog posts. It consists of four specialized agents—Topic Generator, Researcher, Writer, and Editor—each performing a distinct role in the writing process. The system provides a seamless, step-by-step experience for users to create, refine, and finalize blog content efficiently.
 
 ### Problem Space
 
