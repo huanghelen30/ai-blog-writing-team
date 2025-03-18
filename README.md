@@ -1,4 +1,4 @@
-# Lumos - The AI Blog Writing Team
+# AI Agent-cy - The AI Blog Writing Team
 
 ## Overview
 
@@ -94,7 +94,7 @@ Week 2 - Frontend & Integration
 ## Future Implementations
 
 - Log in/User Account set up  
-- Bing Search API - For retrieving real-time research data  
+- Add Citations functionality
 - Day and Night mode  
 - AI-generated SEO recommendations  
 - AI voice-based content drafting
