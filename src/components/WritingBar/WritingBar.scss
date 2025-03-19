@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-between;
     gap: 6rem;
-    padding: 1rem 1.5rem; 
+    padding: 1rem 2.5rem; 
     background-color: $background-dark;
     color: $primary-text;
 }
@@ -19,8 +19,10 @@
 .changes-box {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 3rem;
     width: 50%;
+    min-height: 6rem;
     position: relative;
 }
 
@@ -28,7 +30,7 @@
     flex-grow: 1;
     padding: 1rem;
     padding-right: 3rem;
-    border-radius: 1.5rem;
+    border-radius: 1.75rem;
     border: none;
     overflow-y: hidden;
 }
@@ -44,6 +46,13 @@
     cursor: pointer;
 }
 
+.submit svg {
+    transition: fill 0.3s ease; 
+    &:hover rect {
+        fill: $background-dark;
+    }
+}
+
 .next {
     display: flex;
     align-items: center;
@@ -51,12 +60,14 @@
 
 .btn {
     padding: 0rem 1.5rem;
+    min-height: 3rem;
     background-color: $primary-highlight;
     border: none;
-    border-radius: 1.5rem;
+    border-radius: 1.75rem;
     text-decoration: none;
     color:black;
     font-size: 1rem;
+    line-height: 1.25rem;
     cursor: pointer;
     &:hover {
         background-color: $primary-text;

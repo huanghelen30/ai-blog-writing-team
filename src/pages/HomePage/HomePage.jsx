@@ -12,7 +12,7 @@ function HomePage() {
         <div className="intro">
           <p className="intro__heading">AI Agent-cy</p>
           <p className="intro__subheading">Your Friendly AI Writing Team</p>
-          <Link to="/topics" className="intro__button">Start Writing</Link>
+          <Link to="/topic" className="intro__button">Start Writing</Link>
         </div>
       </div>
       <div className="cards">
