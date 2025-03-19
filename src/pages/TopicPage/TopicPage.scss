@@ -1,0 +1,23 @@
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/colors" as *;
+
+.topicpage {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 3.45rem);
+}
+
+.container {
+    display: flex;
+    flex: 1; 
+    overflow: hidden;
+}
+
+.qa-section {
+    width: 40%;
+    overflow-y: auto; 
+} 
+.draft-section {
+    width: 60%; 
+    overflow-y: auto;
+}

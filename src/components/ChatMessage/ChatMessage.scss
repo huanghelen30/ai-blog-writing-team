@@ -1,0 +1,18 @@
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/colors" as *;
+
+.chat-message {
+    display: flex;
+    gap: 1rem;
+}
+
+.message-name {
+    color: $primary-text;
+    font-size: 1.25rem;
+}
+
+.message-bubble {
+    padding: 1rem;
+    background-color: #F8FAFC;
+    border-radius: 12px;
+}
