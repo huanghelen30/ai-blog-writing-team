@@ -3,10 +3,9 @@ import "./ChatMessage.scss";
 
 function ChatMessage({ text, sender }) {
     return (
-        <div className={`chat-message ${sender}`}>
-            <Avatar sender={sender} />
-            <div className="chat-container">
-                <p className="message-name">{sender}</p>
+        <div className={`chat-message ${sender === 'User' ? 'user-message' : ''}`}>
+            <div className={`chat-container ${sender === 'user' ? 'user' : ''}`}>
+                {sender !== 'user' && <Avatar sender={sender} />}
                 <div className="message-bubble">{text}</div>
             </div>
         </div>
