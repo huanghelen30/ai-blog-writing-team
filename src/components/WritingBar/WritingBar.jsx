@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./WritingBar.scss";
 
 const baseURL = import.meta.env.VITE_BACKEND_URL;
 
-function WritingBar({ userInput, setUserInput, onGenerateTopics, onExistingTopicSelect, onConfirmTopic, onSubmitMessage }) {
+function WritingBar({ userInput, setUserInput, onSubmitMessage, onSave, onNext }) {
   const [inputText, setInputText] = useState(userInput || "");
-  const [customTopic, setCustomTopic] = useState("");
-  const [waitingForInput, setWaitingForInput] = useState(false);
 
   const handleInputChange = (event) => {
     const value = event.target.value;
@@ -28,17 +26,6 @@ function WritingBar({ userInput, setUserInput, onGenerateTopics, onExistingTopic
     }
   };
 
-  const handleCustomTopic = () => {
-    setWaitingForInput(true);
-  };
-
-  const confirmCustomTopic = () => {
-    if (onConfirmTopic) {
-      onConfirmTopic(customTopic);
-    }
-    setWaitingForInput(false);
-  };
-
   return (
     <div className="writingbar">
       <div className="input-box">
@@ -56,22 +43,9 @@ function WritingBar({ userInput, setUserInput, onGenerateTopics, onExistingTopic
             </svg>
         </div>
       </div>
-
-      {waitingForInput && (
-        <div className="suggestion-box">
-          <input
-            type="text"
-            value={customTopic}
-            onChange={(e) => setCustomTopic(e.target.value)}
-            placeholder="Enter your custom topic"
-          />
-          <button onClick={() => onConfirmTopic(topic)}>Accept Changes</button>
-        </div>
-      )}
-
       <div className="changes-box">
-        <button className="save btn">Save</button>
-        <Link to="/research" className="next btn">Next</Link>
+        <button className="save btn" onClick={onSave}>Save</button>
+        <button className="next btn" onClick={onNext}>Next</button>
       </div>
     </div>
   );

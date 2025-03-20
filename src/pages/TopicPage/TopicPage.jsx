@@ -1,139 +1,143 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import TopicBar from "/src/components/TopicBar/TopicBar.jsx";
 import QASection from "/src/components/QASection/QASection.jsx";
 import DraftSection from "/src/components/DraftSection/DraftSection.jsx";
 import WritingBar from "/src/components/WritingBar/WritingBar.jsx";
-import "./TopicPage.scss"
+import "./TopicPage.scss";
 
 const baseURL = import.meta.env.VITE_BACKEND_URL;
 
 function TopicPage() {
-  const { id } = useParams();
+  const { blogId } = useParams();
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([
-    { text: "Hey there! Do you have a pre-existing topic or would you like me to come up with some?", sender: "Nancy" },
+    { text: "Hey there! Type 'generate' and I can brainstorm some ideas for you to write about, or just type your own topic.", sender: "Nancy" },
   ]);
   const [topic, setTopic] = useState("No topic selected");
   const [blog, setBlog] = useState({ content: "" });
   const [userInput, setUserInput] = useState("");
-  const [hasExistingTopic, setHasExistingTopic] = useState(null);
-  const [confirmTopic, setConfirmTopic] = useState(false); 
-  const [nextStep, setNextStep] = useState(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [_generatedTopics, setGeneratedTopics] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  async function handleTopicSelection(selectedTopic, userInput) {
-    try {
-      const response = await axios.post(`${baseURL}/topic`, {
-        selectedTopic,
-        userInput,
-        hasExistingTopic,
-        confirmTopic
-      });
-
-      const data = response.data;
-      setMessages(prevMessages => [
-        ...prevMessages,
-        { text: data.message, sender: "Nancy" }
-      ]);
-      setTopic(data.selectedTopic || "No topic selected");
-      setBlog(data.newBlog || {content: "" });
-      setNextStep(data.nexStep);
-    } catch (error) {
-      console.error("Error fetching topic");
-      setMessages(prevMessages => [
-        ...prevMessages,
-        { text: "Failed to load topic. Try again later.", sender: "Nancy" }
-      ]);
-    }
-  }
-    
   const handleInputChange = (value) => {
     setUserInput(value);
-  }
+  };
 
-  const handleGenerateTopics = () => {
-    setHasExistingTopic(false);
-    handleTopicSelection("", userInput, false, false);
-  }
-
-  const handleExistingTopic = (existingTopic) => {
-    setHasExistingTopic(true); 
-    handleTopicSelection(existingTopic, "", true, false);
-  }
-
-  const handleConfirmTopic = (selectedTopic) => {
-    setConfirmTopic(true);
-    handleTopicSelection(selectedTopic, "", true, true);
-  }
-
-  const handleSubmitMessage = async (text) => {
+  const handleSubmit = async (text) => {
     if (!text.trim()) return;
-
-    setMessages(prevMessages => [
-      ...prevMessages,
-      { text: text, sender: "User" }
-    ]);
-    
+    setMessages(prevMessages => [...prevMessages, { text, sender: "User" }]);
     setUserInput("");
-    
-    try {
-      const response = await axios.post(`${baseURL}/topic`, {
-        userInput: text, 
-        hasExistingTopic: false 
-      });
+  
+    if (text.toLowerCase() === 'generate') {
+      setIsGenerating(true);
+      setMessages(prevMessages => [...prevMessages, { text: "What topic do you want to write about? You can choose from the list or type your own topic.", sender: "Nancy" }]);
+    } else if (isGenerating) {
+      try {
+        const response = await axios.post(`${baseURL}/topic`, { 
+          action: "generate", 
+          userInput: text 
+        });
+        const data = response.data;
+        
+        const topicsArray = data.topics.split("\n")
+          .map((topic, index) => topic.trim())
+          .filter((topic) => topic !== "")
+          .slice(0, 5);
+        
+        if (topicsArray.length > 0) {
+          setMessages(prevMessages => [
+            ...prevMessages,
+            { 
+              text: `Here are some topic suggestions:\n${topicsArray.join("\n\n")}`,
+              sender: "Nancy" 
+            }
+          ]);
+          setGeneratedTopics(topicsArray);
+        } else {
+          setMessages(prevMessages => [
+            ...prevMessages,
+            { text: "No topics available. Try again later.", sender: "Nancy" }
+          ]);
+        }
+        setIsGenerating(false);
+        setTopic("");
+      } catch (error) {
+        console.error("Error generating topics:", error);
+        setMessages(prevMessages => [...prevMessages, { text: "Couldn't generate topics. Try again later.", sender: "Nancy" }]);
+        setIsGenerating(false);
+      }
+    } else {
+      setTopic(text);
+      setMessages(prevMessages => [...prevMessages, { text: `You have chosen your topic: "${text}"`, sender: "Nancy" }]);
+      setGeneratedTopics([]);
+    }
+  };
 
-      const data = response.data;
-      
-      if (data.message) {
-        setMessages(prevMessages => [
-          ...prevMessages,
-          { text: data.message, sender: "Nancy" }
-        ]);
-      }
-      
-      if (data.topics && data.topics.length > 0) {
-        const topicsList = data.topics.join("\n- ");
-        setMessages(prevMessages => [
-          ...prevMessages,
-          { text: `Here are some topic suggestions:\n- ${topicsList}`, sender: "Nancy" }
-        ]);
-      }
-      
-      if (data.selectedTopic) {
-        setTopic(data.selectedTopic);
-      }
-      
-      if (data.newBlog) {
-        setBlog(data.newBlog);
-      }
-      
-      if (data.nextStep) {
-        setNextStep(data.nextStep);
-      }
-      
-    } catch (error) {
-      console.error("Error sending message:", error);
+  const handleSave = async () => {
+    if (!topic || topic === "No topic selected") {
+      setMessages(prevMessages => [...prevMessages, { text: "Please select a topic first.", sender: "Nancy" }]);
+      return;
+    }
+
+    try {
+      const response = await axios.post(`${baseURL}/blog`, { 
+        selectedTopic: topic
+      });
+      const blogId = response.data.id;
+      console.log("Response from server:", response.data);
       setMessages(prevMessages => [
         ...prevMessages,
-        { text: "Sorry, I couldn't process your message. Please try again.", sender: "Nancy" }
+        { text: `Topic saved: "${topic}". A new blog will be created based on that topic.`, sender: "Nancy" }
       ]);
+      navigate(`/topic/${blogId}`);
+    } catch (error) {
+      console.error("Error saving topic:", error);
+      setMessages(prevMessages => [...prevMessages, { text: "Failed to save blog. Try again later.", sender: "Nancy" }]);
     }
-  }
+  };
+
+  useEffect(() => {
+    if (blogId) {
+      const fetchBlog = async () => {
+        try {
+          const response = await axios.get(`${baseURL}/blog/${blogId}`);
+          setLoading(false);
+          setTopic(response.data.selectedTopic);
+          setBlog(response.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error("Error fetching blog:", error);
+          setLoading(false);
+          setMessages(prevMessages => [...prevMessages, { text: "Error fetching blog data.", sender: "Nancy" }]);
+        }
+      };
+      fetchBlog();
+    }
+  }, [blogId]);
+
+  const renderTopic = loading ? "Waiting for topic..." : topic;
+
+  const handleNext = () => {
+    console.log("Navigating to next page with blogId:", blog.id);
+    navigate(`/research/${blogId}`);
+  };
 
   return (
     <main className="topicpage">
-      <TopicBar topic={topic}/>
+      <TopicBar topic={renderTopic} />
       <div className="container">
         <QASection messages={messages} />
-        <DraftSection content={blog.content}/>
+        <DraftSection content={blog.content} />
       </div>
       <WritingBar 
         userInput={userInput} 
         setUserInput={handleInputChange} 
-        onGenerateTopics={handleGenerateTopics}
-        onExistingTopicSelect={handleExistingTopic}
-        onConfirmTopic={handleConfirmTopic}
-        onSubmitMessage={handleSubmitMessage}
+        onSubmitMessage={handleSubmit}
+        onSave={handleSave}
+        onNext={handleNext}
       />
     </main>
   );
