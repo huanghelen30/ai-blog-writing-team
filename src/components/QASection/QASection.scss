@@ -1,0 +1,11 @@
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/colors" as *;
+
+.qa-section {
+    padding: 2rem 3rem;
+}
+.usr {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1rem;
+}

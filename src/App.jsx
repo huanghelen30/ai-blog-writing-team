@@ -16,9 +16,10 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/topic" element={<TopicPage />} />
-          <Route path="/research" element={<ResearchPage />} />
-          <Route path="/write" element={<WritePage />} />
-          <Route path="/edit" element={<EditPage />} />
+          <Route path="/topic/:blogId" element={<TopicPage />} />
+          <Route path="/research/:blogId" element={<ResearchPage />} />
+          <Route path="/write/:blogId" element={<WritePage />} />
+          <Route path="/edit/:blogId" element={<EditPage />} />
           <Route path="/blogs" element={<BlogsPage />} />
         </Routes>
       </main>

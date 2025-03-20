@@ -10,7 +10,7 @@
     max-height: 30rem;
     min-width: 15rem;
     min-height: 25rem;
-    margin: 0.5rem;
+    margin: 2rem;
     border-radius: .5rem;
     aspect-ratio: 13/8;
     background-color: $primary-accent;
@@ -23,7 +23,7 @@
         background-color: $primary-text;
     }
     &__image {
-        margin: 1rem;
+        margin-top: 2rem;
         max-width: 12rem;
         max-height: 15rem;
         min-width: 6rem;
