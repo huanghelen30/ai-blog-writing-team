@@ -33,7 +33,7 @@ function TopicPage() {
   
     if (text.toLowerCase() === 'generate') {
       setIsGenerating(true);
-      setMessages(prevMessages => [...prevMessages, { text: "What topic do you want to write about? You can choose from the list or type your own topic.", sender: "Nancy" }]);
+      setMessages(prevMessages => [...prevMessages, { text: "What topic do you want to write about?", sender: "Nancy" }]);
     } else if (isGenerating) {
       try {
         const response = await axios.post(`${baseURL}/topic`, { 
@@ -126,7 +126,7 @@ function TopicPage() {
   };
 
   return (
-    <main className="topicpage">
+    <main className="writingpage">
       <TopicBar topic={renderTopic} />
       <div className="container">
         <QASection messages={messages} />
