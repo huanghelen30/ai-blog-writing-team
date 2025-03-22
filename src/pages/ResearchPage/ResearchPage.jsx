@@ -74,8 +74,10 @@ const handleSave = async () => {
       return;
     }
 
+    console.log("Sending research data:", researchData);
+
     const response = await axios.post(`${baseURL}/research/save/${blogId}`, {
-      mainTopic: researchData,
+      content: researchData,
       source: researchSource || "Unknown"
     });
 
