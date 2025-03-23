@@ -22,8 +22,8 @@ function ResearchPage() {
   const [userInput, setUserInput] = useState("");
   const [_isGenerating, setIsGenerating] = useState(false);
   const [_loading, setLoading] = useState(true);
-  const [awaitingRefinement, setAwaitingRefinement] = useState(false);
   const [researchData, setResearchData] = useState(null);
+  const [researchSource, setResearchSource] = useState(null);
 
   const handleInputChange = (value) => {
     setUserInput(value);
@@ -46,55 +46,55 @@ function ResearchPage() {
                 ...prevMessages,
                 { text: `Here is the research for the topic:`, sender: "Oliver" },
                 { text: `Main Topic: ${data.mainTopicSummary || "No summary available"}`, sender: "Oliver" },
-                { text: `Source: ${data.researchSource || "No sources found"}`, sender: "Oliver" },
-                { text: "Would you like me to refine or modify the research?", sender: "Oliver" }
+                { text: `Source: ${data.researchSource || "No sources found"}`, sender: "Oliver" }
             ]);
 
             setIsGenerating(false);
-            setAwaitingRefinement(true);
+            setResearchData(data.mainTopicSummary);
+            setResearchSource(data.researchSource)
         } catch (error) {
             console.error("Error generating research:", error);
             setMessages(prevMessages => [...prevMessages, { text: "Couldn't generate research. Try again later.", sender: "Oliver" }]);
             setIsGenerating(false);
         }
-    } else if (awaitingRefinement) {
-        try {
-            const response = await axios.post(`${baseURL}/research/${blogId}`, { action: "refine", userInput: text });
-            setMessages(prevMessages => [...prevMessages, { text: response.data.mainTopicSummary, sender: "Oliver" }]);
-        } catch (error) {
-            console.error("Error refining research:", error);
-            setMessages(prevMessages => [...prevMessages, { text: "Couldn't refine the research. Try again later.", sender: "Oliver" }]);
-        }
-
-        setAwaitingRefinement(false);
     } else {
         setMessages(prevMessages => [...prevMessages, { text: `You've entered your own research: "${text}"`, sender: "Oliver" }]);
-    }
+        setResearchData(text);
+      }
 };
 
-  
-  const handleSave = async () => {
-    if (!topic) {
-      setMessages(prevMessages => [...prevMessages, { text: "Please go back and generate a topic first.", sender: "Oliver" }]);
+const handleSave = async () => {
+  try {
+    if (!topic || !researchData) {
+      console.error("Missing data to save research");
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { text: "Topic or research data is missing. Cannot save.", sender: "Oliver" }
+      ]);
       return;
     }
 
-    try {
-      const response = await axios.post(`${baseURL}/research/${blogId}`, { 
-        selectedTopic: topic
-      });
-      const blogId = response.data.id;
-      console.log("Response from server:", response.data);
-      setMessages(prevMessages => [
-        ...prevMessages,
-        { text: `Research saved to the database. Your blog will be updated based on that research.`, sender: "Oliver" }
-      ]);
-      navigate(`/topic/${blogId}`);
-    } catch (error) {
-      console.error("Error saving research:", error);
-      setMessages(prevMessages => [...prevMessages, { text: "Failed to save blog. Try again later.", sender: "Oliver" }]);
-    }
-  };
+    console.log("Sending research data:", researchData);
+
+    const response = await axios.post(`${baseURL}/research/${blogId}`, {
+      content: researchData,
+      source: researchSource || "Unknown"
+    });
+
+    console.log("Response from server:", response.data);
+    setMessages(prevMessages => [
+      ...prevMessages,
+      { text: `Research saved: "${researchData}". Your research will be updated.`, sender: "Oliver" }
+    ]);
+  } catch (error) {
+    console.error("Error saving research:", error);
+    setMessages(prevMessages => [
+      ...prevMessages,
+      { text: "Failed to save research. Try again later.", sender: "Oliver" }
+    ]);
+  }
+};
+
 
   useEffect(() => {
     if (blogId) {
@@ -114,6 +114,11 @@ function ResearchPage() {
     }
   }, [blogId]);
 
+  const handleBack = () => {
+    console.log("Navigating back to TopicPage with blogId;", blog.id);
+    navigate(`/topic/${blogId}`);
+  };
+
   const handleNext = () => {
     console.log("Navigating to next page with blogId:", blog.id);
     navigate(`/write/${blogId}`);
@@ -130,6 +135,7 @@ function ResearchPage() {
         userInput={userInput} 
         setUserInput={handleInputChange} 
         onSubmitMessage={handleSubmit}
+        onBack={handleBack}
         onSave={handleSave}
         onNext={handleNext}
       />

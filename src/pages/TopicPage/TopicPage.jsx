@@ -120,6 +120,11 @@ function TopicPage() {
 
   const renderTopic = loading ? "Waiting for topic..." : topic;
 
+  const handleBack = () => {
+    console.log("Navigating back to HomePage");
+    navigate(`/`);
+  };
+  
   const handleNext = () => {
     console.log("Navigating to next page with blogId:", blog.id);
     navigate(`/research/${blogId}`);
@@ -136,6 +141,7 @@ function TopicPage() {
         userInput={userInput} 
         setUserInput={handleInputChange} 
         onSubmitMessage={handleSubmit}
+        onBack={handleBack}
         onSave={handleSave}
         onNext={handleNext}
       />
