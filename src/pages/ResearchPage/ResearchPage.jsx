@@ -76,7 +76,7 @@ const handleSave = async () => {
 
     console.log("Sending research data:", researchData);
 
-    const response = await axios.post(`${baseURL}/research/save/${blogId}`, {
+    const response = await axios.post(`${baseURL}/research/${blogId}`, {
       content: researchData,
       source: researchSource || "Unknown"
     });
@@ -114,6 +114,11 @@ const handleSave = async () => {
     }
   }, [blogId]);
 
+  const handleBack = () => {
+    console.log("Navigating back to TopicPage with blogId;", blog.id);
+    navigate(`/topic/${blogId}`);
+  };
+
   const handleNext = () => {
     console.log("Navigating to next page with blogId:", blog.id);
     navigate(`/write/${blogId}`);
@@ -130,6 +135,7 @@ const handleSave = async () => {
         userInput={userInput} 
         setUserInput={handleInputChange} 
         onSubmitMessage={handleSubmit}
+        onBack={handleBack}
         onSave={handleSave}
         onNext={handleNext}
       />

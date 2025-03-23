@@ -4,7 +4,7 @@ import "./WritingBar.scss";
 
 const baseURL = import.meta.env.VITE_BACKEND_URL;
 
-function WritingBar({ userInput, setUserInput, onSubmitMessage, onSave, onNext }) {
+function WritingBar({ userInput, setUserInput, onSubmitMessage, onBack, onSave, onNext }) {
   const [inputText, setInputText] = useState(userInput || "");
 
   const handleInputChange = (event) => {
@@ -44,6 +44,7 @@ function WritingBar({ userInput, setUserInput, onSubmitMessage, onSave, onNext }
         </div>
       </div>
       <div className="changes-box">
+        <button className="back btn" onClick={onBack}>Back</button>
         <button className="save btn" onClick={onSave}>Save</button>
         <button className="next btn" onClick={onNext}>Next</button>
       </div>

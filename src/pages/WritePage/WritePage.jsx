@@ -123,6 +123,11 @@ const handleSave = async () => {
     }
   }, [blogId]);
 
+  const handleBack = () => {
+    console.log("Navigating back to ResearchPage with blogId;", blog.id);
+    navigate(`/research/${blogId}`);
+  };
+
   const handleNext = () => {
     console.log("Navigating to next page with blogId:", blog.id);
     navigate(`/edit/${blogId}`);
@@ -139,6 +144,7 @@ const handleSave = async () => {
         userInput={userInput} 
         setUserInput={handleInputChange} 
         onSubmitMessage={handleSubmit}
+        onBack={handleBack}
         onSave={handleSave}
         onNext={handleNext}
       />
