@@ -23,6 +23,24 @@ function WritePage() {
   const [_isGenerating, setIsGenerating] = useState(false);
   const [_loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    if (blogId) {
+      const fetchBlog = async () => {
+        try {
+          const response = await axios.get(`${baseURL}/blog/${blogId}`);
+          setTopic(response.data.selectedTopic || "No topic selected");
+          setBlog({ content: response.data.content || "" });
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching blog:", error);
+          setLoading(false);
+          setMessages(prevMessages => [...prevMessages, { text: "Error fetching blog data.", sender: "Sophia" }]);
+        }
+      };
+      fetchBlog();
+    }
+  }, [blogId]);
+  
   const handleInputChange = (value) => {
     setUserInput(value);
   };
@@ -37,7 +55,7 @@ function WritePage() {
         setMessages(prevMessages => [...prevMessages, { text: "writing draft for you... please wait.", sender: "Sophia" }]);
 
         try {
-            const response = await axios.post(`${baseURL}/write/draft/${blogId}`, { action: "write" });
+            const response = await axios.post(`${baseURL}/write/${blogId}`, { action: "write" });
             const data = response.data;
 
             setMessages(prevMessages => [
@@ -104,24 +122,6 @@ const handleSave = async () => {
     ]);
   }
 };
-
-  useEffect(() => {
-    if (blogId) {
-      const fetchBlog = async () => {
-        try {
-          const response = await axios.get(`${baseURL}/blog/${blogId}`);
-          setTopic(response.data.selectedTopic || "No topic selected");
-          setBlog({ content: response.data.content || "" });
-          setLoading(false);
-        } catch (error) {
-          console.error("Error fetching blog:", error);
-          setLoading(false);
-          setMessages(prevMessages => [...prevMessages, { text: "Error fetching blog data.", sender: "Sophia" }]);
-        }
-      };
-      fetchBlog();
-    }
-  }, [blogId]);
 
   const handleBack = () => {
     console.log("Navigating back to ResearchPage with blogId;", blog.id);
