@@ -29,7 +29,7 @@ Writing high-quality blog content requires substantial effort, including idea ge
 - **Research Agent**: Collects and summarizes relevant data from reputable sources.
 - **Writer Agent**: Generates structured blog drafts using AI.
 - **Editor Agent**: Enhances grammar, style, and readability with AI-powered refinements.
-- **Step-by-Step AI Workflow**: Ensures users follow a logical content creation process.
+- **Step-by-Step Workflow**: Ensures users follow a logical content creation process.
 
 
 ## Implementation
@@ -38,8 +38,7 @@ Writing high-quality blog content requires substantial effort, including idea ge
 
 - Frontend: React.js
 - Backend: Node.js with Express
-- Database: MySQL (for content storage)
-- AI APIs: Gemini API
+- Database: MySQL (for blog storage)
 
 
 ### APIs
@@ -47,11 +46,15 @@ Writing high-quality blog content requires substantial effort, including idea ge
 AI Blog Agent will integrate with the following APIs:
 
 - **Gemini API**: For AI-generated topic suggestions, research, and content writing.
-
+- **Wikimedia API**: For summarized research.
 ### Sitemap
 
 - **Home Page/Dashboard**: Overview of the app
-- **Blog Writing Page**: AI-generated draft creation with interactive editing.
+- **Blog Writing Pages**: AI-generated draft creation with interactive editing.
+    - **Topic Generating Page**: Come up with various topics.
+    - **Research Page**: Research summarized on th chosen topic from Wikipedia.
+    - **Writing Page**: AI-generated draft creation with interactive editing.
+    - **Edit Page**: AI-generated suggestions for writing.
 - **Profile Page**: User workspace for managing blog projects.
 
 ### Mockups
@@ -60,14 +63,14 @@ You can find the mockup in PDF format [here](./public/mockup.pdf).
 
 ### Data
 - Blogs (id, title, content, status: draft/published)
-- Research Data (id, source, summarized text, relevance score)
+- Research Data (id, blogId, source, summarized text)
 
 Each blog can have multiple research sources attached.
-Each AI agent generates data stored in different stages of the content pipeline.
 
 ### Endpoints
 
-- `POST /api/topics` - Generate custom topics based on user parameters
+- `POST /api/topics` - Generate custom topics based on user parameters before blog creation
+- `POST /api/topics/:blogId` - Generate custom topics based on user parameters after blog creation
 - `POST /api/research` - Initiate research collection for a topic
 - `POST /api/write` - Write a new blog draft
 - `POST /api/edit` - Edit blog draft

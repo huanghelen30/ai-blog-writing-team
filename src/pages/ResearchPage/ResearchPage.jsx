@@ -74,14 +74,11 @@ const handleSave = async () => {
       return;
     }
 
-    console.log("Sending research data:", researchData);
-
-    const response = await axios.post(`${baseURL}/research/${blogId}`, {
+    const response = await axios.post(`${baseURL}/research/save/${blogId}`, {
       content: researchData,
       source: researchSource || "Unknown"
     });
 
-    console.log("Response from server:", response.data);
     setMessages(prevMessages => [
       ...prevMessages,
       { text: `Research saved: "${researchData}". Your research will be updated.`, sender: "Oliver" }
