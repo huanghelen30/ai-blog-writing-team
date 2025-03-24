@@ -18,7 +18,7 @@ function HomePage() {
       <div className="cards">
             {characterData.map((card, index) => (
                 <CharacterCard 
-                    key={card.title} 
+                    key={index} 
                     title={card.title} 
                     intro={card.intro}
                     image={card.image}

@@ -19,7 +19,6 @@ function EditPage() {
   
   const [topic, setTopic] = useState(""); 
   const [blog, setBlog] = useState({ content: "" });
-  const [userInput, setUserInput] = useState("");
   const [_isGenerating, setIsGenerating] = useState(false);
   const [_loading, setLoading] = useState(true);
 
@@ -40,25 +39,20 @@ function EditPage() {
       fetchBlog();
     }
   }, [blogId]);
-  
-  const handleInputChange = (value) => {
-    setUserInput(value);
-  };
 
   const handleSubmit = async (text) => {
     if (!text.trim()) return;
     setMessages(prevMessages => [...prevMessages, { text, sender: "User" }]);
-    setUserInput("");
-
     setIsGenerating(true);
-    setMessages(prevMessages => [...prevMessages, { text: "racking my brain... please wait.", sender: "Max" }]);
 
+    setMessages(prevMessages => [...prevMessages, { text: "racking my brain... please wait.", sender: "Max" }]);
     try {
         const response = await axios.post(`${baseURL}/edit/${blogId}`, { 
           action: "edit",
           draft: blog.content,
-          instructions: userInput 
+          instructions: text 
         });
+
         const data = response.data;
 
         setMessages(prevMessages => [
@@ -104,12 +98,10 @@ const handleSave = async () => {
 };
 
   const handleBack = () => {
-    console.log("Navigating back to ResearchPage with blogId:", blogId);
     navigate(`/research/${blogId}`);
   };
 
   const handleNext = () => {
-    console.log("Navigating to blogs");
     navigate(`/blogs`);
   };
 
@@ -120,9 +112,7 @@ const handleSave = async () => {
         <QASection messages={messages} />
         <DraftSection content={blog.content} setBlog={setBlog} />
       </div>
-      <WritingBar 
-        userInput={userInput} 
-        setUserInput={handleInputChange} 
+      <WritingBar  
         onSubmitMessage={handleSubmit}
         onBack={handleBack}
         onSave={handleSave}

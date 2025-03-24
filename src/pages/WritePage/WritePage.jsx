@@ -19,7 +19,6 @@ function WritePage() {
   
   const [topic, setTopic] = useState(""); 
   const [blog, setBlog] = useState({ content: "" });
-  const [userInput, setUserInput] = useState("");
   const [_isGenerating, setIsGenerating] = useState(false);
   const [_loading, setLoading] = useState(true);
 
@@ -33,22 +32,17 @@ function WritePage() {
           setLoading(false);
         } catch (error) {
           console.error("Error fetching blog:", error);
-          setLoading(false);
           setMessages(prevMessages => [...prevMessages, { text: "Error fetching blog data.", sender: "Sophia" }]);
+          setLoading(false);
         }
       };
       fetchBlog();
     }
   }, [blogId]);
-  
-  const handleInputChange = (value) => {
-    setUserInput(value);
-  };
 
   const handleSubmit = async (text) => {
     if (!text.trim()) return;
     setMessages(prevMessages => [...prevMessages, { text, sender: "User" }]);
-    setUserInput("");
 
     if (text.toLowerCase() === "write") {
         setIsGenerating(true);
@@ -63,8 +57,8 @@ function WritePage() {
                 { text: `Ive written a draft based on the research for this blog, follow up with anything you'd like me to suggest for refinements`, sender: "Sophia" },
             ]);
 
-            setIsGenerating(false);
             setBlog({ content: data.content });
+            setIsGenerating(false); 
         } catch (error) {
             console.error("Error writing draft:", error);
             setMessages(prevMessages => [...prevMessages, { text: "Couldn't write draft. Try again later.", sender: "Sophia" }]);
@@ -84,8 +78,8 @@ function WritePage() {
               { text: `Here is what I suggest to refine in your draft based on what you've asked.` , sender: "Sophia" },
           ]);
 
-          setIsGenerating(false);
           setBlog({ content: data.content });
+          setIsGenerating(false);
       } catch (error) {
           console.error("Error writing draft:", error);
           setMessages(prevMessages => [...prevMessages, { text: "Couldn't write draft. Try again later.", sender: "Sophia" }]);
@@ -95,9 +89,7 @@ function WritePage() {
 };
 
 const handleSave = async () => {
-  try {
     if (!blog.content.trim) {
-      console.error("Missing data to save blog");
       setMessages(prevMessages => [
         ...prevMessages,
         { text: "Content is missing. Cannot save.", sender: "Sophia" }
@@ -105,11 +97,11 @@ const handleSave = async () => {
       return;
     }
 
-    const response = await axios.put(`${baseURL}/blog/${blogId}`, {
-      content: blog.content
-    });
+    try {
+      const response = await axios.put(`${baseURL}/blog/${blogId}`, {
+        content: blog.content
+      });
 
-    console.log("Response from server:", response.data);
     setMessages(prevMessages => [
       ...prevMessages,
       { text: `Blog saved. Your blog will be updated.`, sender: "Sophia" }
@@ -124,12 +116,10 @@ const handleSave = async () => {
 };
 
   const handleBack = () => {
-    console.log("Navigating back to ResearchPage with blogId;", blog.id);
     navigate(`/research/${blogId}`);
   };
 
   const handleNext = () => {
-    console.log("Navigating to next page with blogId:", blog.id);
     navigate(`/edit/${blogId}`);
   };
 
@@ -141,8 +131,6 @@ const handleSave = async () => {
         <DraftSection content={blog.content} setBlog={setBlog} />
       </div>
       <WritingBar 
-        userInput={userInput} 
-        setUserInput={handleInputChange} 
         onSubmitMessage={handleSubmit}
         onBack={handleBack}
         onSave={handleSave}
