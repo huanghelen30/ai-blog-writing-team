@@ -1,0 +1,44 @@
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/colors" as *;
+
+.blogspage {
+    width: 100%;
+    padding: 1.5rem 4rem;
+    background-image: url('/src/assets/pink-pixel-art.jpg');
+    background-size: 100% auto;
+    background-repeat: no-repeat; 
+    background-color: $background-light;
+}
+
+.blogsintro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1rem;
+    &__heading {
+        margin: 0;
+        font-family: Matchalatte, serif;
+        font-size: 4rem;
+        color: $primary-text;
+    }
+    &__subheading {
+        margin: 0;
+        font-size: 1.5rem;
+        color: $primary-accent;
+    }
+}
+
+.blogcards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3rem;
+}
+
+.blog-link {
+    display: grid;
+    place-items: center;
+    color: $primary-text;
+    text-decoration: none; 
+}

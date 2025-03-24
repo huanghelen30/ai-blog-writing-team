@@ -1,0 +1,8 @@
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/colors" as *;
+
+.topicbar {
+    padding: 1rem; 
+    background-color: $background-light;
+    color: $primary-text;
+}

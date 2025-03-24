@@ -1,0 +1,76 @@
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/colors" as *;
+
+.writingbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 6rem;
+    padding: 1rem 2.5rem; 
+    background-color: $background-dark;
+    color: $primary-text;
+}
+
+.input-box {
+    display: flex;
+    width: 42%;
+    position: relative;
+}
+
+.changes-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    width: 50%;
+    min-height: 6rem;
+    position: relative;
+}
+
+.text-input {
+    flex-grow: 1;
+    padding: 1rem;
+    padding-right: 3rem;
+    border-radius: 1.75rem;
+    border: none;
+    overflow-y: hidden;
+}
+
+.submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.submit svg {
+    transition: fill 0.3s ease; 
+    &:hover rect {
+        fill: $background-dark;
+    }
+}
+
+.next {
+    display: flex;
+    align-items: center;
+}
+
+.btn {
+    padding: 0rem 1.5rem;
+    min-height: 3rem;
+    background-color: $primary-highlight;
+    border: none;
+    border-radius: 1.75rem;
+    text-decoration: none;
+    color:black;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    cursor: pointer;
+    &:hover {
+        background-color: $primary-text;
+        color: $primary-highlight;
+      }
+}

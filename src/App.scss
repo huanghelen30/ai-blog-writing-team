@@ -1,0 +1,12 @@
+@use "./styles/partials/fonts" as *;
+@use "./styles/partials/colors" as *;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, button {
+    font-family: Dangrek, sans-serif;
+}

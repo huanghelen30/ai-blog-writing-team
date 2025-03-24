@@ -1,0 +1,25 @@
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/colors" as *;
+
+.draft-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 4rem;
+    background-image: url('/src/assets/pink-pixel-art.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+}
+.draft__content {
+    flex-grow: 1;
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    overflow-y: auto;
+    font-family: Dangrak, sans-serif;
+}
