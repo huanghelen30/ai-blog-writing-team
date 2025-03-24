@@ -19,20 +19,33 @@ function ResearchPage() {
   
   const [topic, setTopic] = useState(""); 
   const [blog, setBlog] = useState({ content: "" });
-  const [userInput, setUserInput] = useState("");
-  const [_isGenerating, setIsGenerating] = useState(false);
-  const [_loading, setLoading] = useState(true);
   const [researchData, setResearchData] = useState(null);
   const [researchSource, setResearchSource] = useState(null);
+  const [_isGenerating, setIsGenerating] = useState(false);
+  const [_loading, setLoading] = useState(true);
 
-  const handleInputChange = (value) => {
-    setUserInput(value);
-  };
+  useEffect(() => {
+    if (blogId) {
+      const fetchBlog = async () => {
+        try {
+          const response = await axios.get(`${baseURL}/blog/${blogId}`);
+          setTopic(response.data.selectedTopic || "No topic selected");
+          setBlog({ content: response.data.content || "" });
+          localStorage.setItem("latestBlogId", blogId);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching blog:", error);
+          setLoading(false);
+          setMessages(prevMessages => [...prevMessages, { text: "Error fetching blog data.", sender: "Oliver" }]);
+        }
+      };
+      fetchBlog();
+    }
+  }, [blogId]);
 
   const handleSubmit = async (text) => {
     if (!text.trim()) return;
     setMessages(prevMessages => [...prevMessages, { text, sender: "User" }]);
-    setUserInput("");
 
     if (text.toLowerCase() === "research") {
         setIsGenerating(true);
@@ -92,32 +105,11 @@ const handleSave = async () => {
   }
 };
 
-
-  useEffect(() => {
-    if (blogId) {
-      const fetchBlog = async () => {
-        try {
-          const response = await axios.get(`${baseURL}/blog/${blogId}`);
-          setTopic(response.data.selectedTopic || "No topic selected");
-          setBlog({ content: response.data.content || "" });
-          setLoading(false);
-        } catch (error) {
-          console.error("Error fetching blog:", error);
-          setLoading(false);
-          setMessages(prevMessages => [...prevMessages, { text: "Error fetching blog data.", sender: "Oliver" }]);
-        }
-      };
-      fetchBlog();
-    }
-  }, [blogId]);
-
   const handleBack = () => {
-    console.log("Navigating back to TopicPage with blogId;", blog.id);
     navigate(`/topic/${blogId}`);
   };
 
   const handleNext = () => {
-    console.log("Navigating to next page with blogId:", blog.id);
     navigate(`/write/${blogId}`);
   };
 
@@ -129,8 +121,6 @@ const handleSave = async () => {
         <DraftSection content={blog.content} />
       </div>
       <WritingBar 
-        userInput={userInput} 
-        setUserInput={handleInputChange} 
         onSubmitMessage={handleSubmit}
         onBack={handleBack}
         onSave={handleSave}
