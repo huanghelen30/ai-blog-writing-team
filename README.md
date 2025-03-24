@@ -1,5 +1,8 @@
 # AI Agent-cy - The AI Blog Writing Team
 
+## Please Read
+- Please view in desktop mode
+
 ## Overview
 
 The AI Agent-cy Blog Writing Team is an intelligent AI-powered system designed to function similar to a multi-agent workflow for generating high-quality blog posts. It consists of four specialized agents—Topic Generator, Researcher, Writer, and Editor—each performing a distinct role in the writing process. The system provides a seamless, step-by-step experience for users to create, refine, and finalize blog content efficiently.
@@ -96,9 +99,11 @@ Week 2 - Frontend & Integration
 
 ## Future Implementations
 
+- Delete functionality
+- Screen reponsiveness
+- Add date/time of save
 - Log in/User Account set up  
 - Add Citations functionality
-- Day and Night mode  
 - AI-generated SEO recommendations  
 - AI voice-based content drafting
 
