@@ -21,5 +21,7 @@
     border: 1px solid #ccc;
     resize: vertical;
     overflow-y: auto;
+    word-wrap: break-word;
+    white-space: pre-line;
     font-family: Dangrak, sans-serif;
 }

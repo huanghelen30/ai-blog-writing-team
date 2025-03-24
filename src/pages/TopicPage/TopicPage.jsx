@@ -92,15 +92,17 @@ function TopicPage() {
 
     try {
       const response = await axios.post(`${baseURL}/blog`, { 
-        selectedTopic: topic
+        selectedTopic: topic,
+        content: blog.content
       });
-      const blogId = response.data.id;
+    
+      const newBlogId = response.data;
 
       setMessages(prevMessages => [
         ...prevMessages,
         { text: `Topic saved: "${topic}". A new blog will be created based on that topic.`, sender: "Nancy" }
       ]);
-      navigate(`/topic/${blogId}`);
+      navigate(`/topic/${newBlogId}`);
     } catch (error) {
       console.error("Error saving topic:", error);
       setMessages(prevMessages => [...prevMessages, { text: "Failed to save blog. Try again later.", sender: "Nancy" }]);
