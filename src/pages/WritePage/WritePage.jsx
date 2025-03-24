@@ -55,7 +55,7 @@ function WritePage() {
 
             setMessages(prevMessages => [
                 ...prevMessages,
-                { text: `Ive written a draft based on the research for this blog, follow up with anything you'd like me to suggest for refinements`, sender: "Sophia" },
+                { text: `Ive written a draft based on the research for this blog`, sender: "Sophia" },
             ]);
 
             setBlog({ content: data.content });

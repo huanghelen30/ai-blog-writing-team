@@ -14,6 +14,7 @@ function BlogsPage() {
   const fetchBlogs = async () => {
     try {
       const response = await axios.get(`${baseURL}/blog`);
+      console.log(response);
       setBlogs(response.data);
     } catch (error) {
       console.error(error);
@@ -27,9 +28,6 @@ function BlogsPage() {
   useEffect(() => {
     fetchBlogs();
   }, []);
-
-  const sortedBlogs = blogs.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
-
 
   if (loading) {
     return <p>Loading blogs...</p>;
@@ -46,8 +44,8 @@ function BlogsPage() {
         <p className="blogsintro__subheading"> Check out your Blogs</p>
       </div>
       <div className="blogcards">
-        {sortedBlogs.length > 0 ? (
-          sortedBlogs.map((blog) =>
+        {blogs.length > 0 ? (
+          blogs.map((blog) =>
             blog.selectedTopic ? (
               <Link key={blog.id} to={`/edit/${blog.id}`} className="blog-link">
                 <BlogCard 
