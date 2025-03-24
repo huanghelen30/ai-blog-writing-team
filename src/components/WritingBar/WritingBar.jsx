@@ -1,28 +1,25 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./WritingBar.scss";
 
 const baseURL = import.meta.env.VITE_BACKEND_URL;
 
-function WritingBar({ userInput, setUserInput, onSubmitMessage, onBack, onSave, onNext }) {
-  const [inputText, setInputText] = useState(userInput || "");
+function WritingBar({ onSubmitMessage, onBack, onSave, onNext }) {
+  const [inputText, setInputText] = useState("");
 
   const handleInputChange = (event) => {
-    const value = event.target.value;
-    setInputText(value);
-    if (setUserInput) {
-      setUserInput(value); 
-    }
+    setInputText(event.target.value);
   };
 
   const handleSubmit = () => {
-    if (inputText.trim() === "") return;
-    
-    if (onSubmitMessage) {
-      onSubmitMessage(inputText);
-      setInputText("");
-    } else {
-      console.error("onSubmitMessage function is not defined");
+    if (!inputText.trim()) return;
+    onSubmitMessage(inputText);
+    setInputText("");
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleSubmit();
     }
   };
 
@@ -33,6 +30,7 @@ function WritingBar({ userInput, setUserInput, onSubmitMessage, onBack, onSave, 
           type="text"
           value={inputText}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           className="text-input"
           placeholder="Type your message here..."
         />
