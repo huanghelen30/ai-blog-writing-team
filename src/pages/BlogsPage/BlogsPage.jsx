@@ -28,7 +28,8 @@ function BlogsPage() {
     fetchBlogs();
   }, []);
 
-  console.log(blogs);
+  const sortedBlogs = blogs.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+
 
   if (loading) {
     return <p>Loading blogs...</p>;
@@ -45,8 +46,8 @@ function BlogsPage() {
         <p className="blogsintro__subheading"> Check out your Blogs</p>
       </div>
       <div className="blogcards">
-        {blogs.length > 0 ? (
-          blogs.map((blog) =>
+        {sortedBlogs.length > 0 ? (
+          sortedBlogs.map((blog) =>
             blog.selectedTopic ? (
               <Link key={blog.id} to={`/edit/${blog.id}`} className="blog-link">
                 <BlogCard 

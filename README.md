@@ -1,7 +1,9 @@
 # AI Agent-cy - The AI Blog Writing Team
 
 ## Please Read
-- Please view in desktop mode
+- currently non-responsive, please view in desktop mode
+- currently must keep topics as one word/short keywords for research endpoint to fetch a source successfully e.g. "computer" vs "Debuggging a computer program"
+- currently must type the excat word as instructed to work as intended
 
 ## Overview
 
@@ -72,12 +74,22 @@ Each blog can have multiple research sources attached.
 
 ### Endpoints
 
-- `POST /api/topics` - Generate custom topics based on user parameters before blog creation
-- `POST /api/topics/:blogId` - Generate custom topics based on user parameters after blog creation
-- `POST /api/research` - Initiate research collection for a topic
-- `POST /api/write` - Write a new blog draft
-- `POST /api/edit` - Edit blog draft
-- `GET /api/blogs` - Retrieve existing blogs
+- `POST /topic` - Generate custom topics based on user parameters before blog creation
+
+- `POST /topic/:blogId` - Generate custom topics based on user parameters after blog creation
+
+- `POST /research/save/:blogId` - Save research associated to blog
+- `POST /research/:blogId` - Initiate research for a topic
+- `GET /research/:blogId` - Get research for a topic
+
+- `POST /write/:blogId` - Write a new blog draft
+
+- `POST /edit/:blogId` - Discover Editing suggestions for blog draft
+
+- `GET /blog` - Retrieve existing blogs
+- `GET /blog/:id` - Retrieve existing blogs
+- `POST /blog` - Retrieve existing blogs
+- `PUT /blog/:id` - Retrieve existing blogs
 
 ## Roadmap
 
