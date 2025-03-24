@@ -84,12 +84,12 @@ Each blog can have multiple research sources attached.
 
 - `POST /write/:blogId` - Write a new blog draft
 
-- `POST /edit/:blogId` - Discover Editing suggestions for blog draft
+- `POST /edit/:blogId` - Generate editing suggestions for blog draft
 
 - `GET /blog` - Retrieve existing blogs
-- `GET /blog/:id` - Retrieve existing blogs
-- `POST /blog` - Retrieve existing blogs
-- `PUT /blog/:id` - Retrieve existing blogs
+- `GET /blog/:id` - Retrieve existing blog
+- `POST /blog` - Create new blog
+- `PUT /blog/:id` - Edit existing blogs
 
 ## Roadmap
 
