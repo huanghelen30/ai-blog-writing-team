@@ -29,6 +29,7 @@ function WritePage() {
           const response = await axios.get(`${baseURL}/blog/${blogId}`);
           setTopic(response.data.selectedTopic || "No topic selected");
           setBlog({ content: response.data.content || "" });
+          localStorage.setItem("latestBlogId", blogId);
           setLoading(false);
         } catch (error) {
           console.error("Error fetching blog:", error);
@@ -49,7 +50,7 @@ function WritePage() {
         setMessages(prevMessages => [...prevMessages, { text: "writing draft for you... please wait.", sender: "Sophia" }]);
 
         try {
-            const response = await axios.post(`${baseURL}/write/${blogId}`, { action: "write" });
+            const response = await axios.post(`${baseURL}/write/${blogId}`);
             const data = response.data;
 
             setMessages(prevMessages => [
@@ -64,29 +65,8 @@ function WritePage() {
             setMessages(prevMessages => [...prevMessages, { text: "Couldn't write draft. Try again later.", sender: "Sophia" }]);
             setIsGenerating(false);
         }
-    } else {
-        try {
-          const response = await axios.post(`${baseURL}/write/refine/${blogId}`, { 
-            action: "refine",
-            userInput: userInput,
-            blogContent: blog.content 
-          });
-          const data = response.data;
-
-          setMessages(prevMessages => [
-              ...prevMessages,
-              { text: `Here is what I suggest to refine in your draft based on what you've asked.` , sender: "Sophia" },
-          ]);
-
-          setBlog({ content: data.content });
-          setIsGenerating(false);
-      } catch (error) {
-          console.error("Error writing draft:", error);
-          setMessages(prevMessages => [...prevMessages, { text: "Couldn't write draft. Try again later.", sender: "Sophia" }]);
-          setIsGenerating(false);
       }
-    } 
-};
+  };
 
 const handleSave = async () => {
     if (!blog.content.trim) {

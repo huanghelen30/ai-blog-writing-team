@@ -29,6 +29,7 @@ function EditPage() {
           const response = await axios.get(`${baseURL}/blog/${blogId}`);
           setTopic(response.data?.selectedTopic || "No topic selected");
           setBlog({ content: response.data?.content || "" });
+          localStorage.setItem("latestBlogId", blogId);
           setLoading(false);
         } catch (error) {
           console.error("Error fetching blog:", error);
@@ -47,8 +48,7 @@ function EditPage() {
 
     setMessages(prevMessages => [...prevMessages, { text: "racking my brain... please wait.", sender: "Max" }]);
     try {
-        const response = await axios.post(`${baseURL}/edit/${blogId}`, { 
-          action: "edit",
+        const response = await axios.post(`${baseURL}/edit/${blogId}`, {
           draft: blog.content,
           instructions: text 
         });

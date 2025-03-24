@@ -30,7 +30,7 @@ function TopicPage() {
           setLoading(false);
           setTopic(response.data.selectedTopic);
           setBlog(response.data);
-          console.log(response.data);
+          localStorage.setItem("latestBlogId", blogId);
         } catch (error) {
           console.error("Error fetching blog:", error);
           setLoading(false);

@@ -31,6 +31,7 @@ function ResearchPage() {
           const response = await axios.get(`${baseURL}/blog/${blogId}`);
           setTopic(response.data.selectedTopic || "No topic selected");
           setBlog({ content: response.data.content || "" });
+          localStorage.setItem("latestBlogId", blogId);
           setLoading(false);
         } catch (error) {
           console.error("Error fetching blog:", error);

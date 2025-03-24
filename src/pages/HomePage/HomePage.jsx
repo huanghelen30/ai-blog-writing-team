@@ -5,6 +5,9 @@ import CharacterCard from "/src/components/CharacterCard/CharacterCard.jsx";
 import "./HomePage.scss"
 
 function HomePage() {  
+
+  const latestBlogId = localStorage.getItem("latestBlogId");
+  
   return (
     <>
       <div className="homepage">
@@ -22,7 +25,7 @@ function HomePage() {
                     title={card.title} 
                     intro={card.intro}
                     image={card.image}
-                    path={card.path} 
+                    path={latestBlogId ? card.path.replace(":blogId", latestBlogId) : card.path} 
                     isEven={index % 2 === 0}
                 />
             ))}
