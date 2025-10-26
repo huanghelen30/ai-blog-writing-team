@@ -1,7 +1,7 @@
-import nancyImage from "/src/assets/profiles/nancy-profile.png";
-import oliverImage from "/src/assets/profiles/oliver-profile.png";
-import sophiaImage from "/src/assets/profiles/sophia-profile.png";
-import maxImage from "/src/assets/profiles/max-profile.png";
+import nancyImage from "../assets/profiles/nancy-profile.PNG";
+import oliverImage from "../assets/profiles/oliver-profile.PNG";
+import sophiaImage from "../assets/profiles/sophia-profile.PNG";
+import maxImage from "../assets/profiles/max-profile.PNG";
 
 const characterData = [
   {

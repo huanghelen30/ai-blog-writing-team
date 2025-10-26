@@ -1,4 +1,4 @@
-import Avatar from "/src/components/Avatar/Avatar.jsx";
+import Avatar from "../Avatar/Avatar.jsx";
 import "./ChatMessage.scss";
 
 function ChatMessage({ text, sender }) {

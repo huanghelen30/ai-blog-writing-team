@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import dogHero from '/src/assets/dog-hero.PNG';
+import dogHero from '../../assets/dog-hero.PNG';
 import characterData from "../../data/characterData";
-import CharacterCard from "/src/components/CharacterCard/CharacterCard.jsx";
+import CharacterCard from "../../components/CharacterCard/CharacterCard.jsx";
 import "./HomePage.scss"
 
 function HomePage() {  

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import BlogCard from "/src/components/BlogCard/BlogCard.jsx";
+import BlogCard from "../../components/BlogCard/BlogCard.jsx";
 import "./BlogsPage.scss"
 
 const baseURL = import.meta.env.VITE_BACKEND_URL;

@@ -1,4 +1,4 @@
-import ChatMessage from "/src/components/ChatMessage/ChatMessage.jsx";
+import ChatMessage from "../ChatMessage/ChatMessage.jsx";
 import "./QASection.scss";
 
 function QASection({ messages }) {

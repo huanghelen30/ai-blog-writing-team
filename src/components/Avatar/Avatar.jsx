@@ -1,5 +1,5 @@
 import characterData from "../../data/characterData";
-import userAvatar from "/src/assets/dog-avatar.jpg"; 
+import userAvatar from "../../assets/dog-avatar.jpg"; 
 import "./Avatar.scss";
 
 function Avatar({ sender }) {

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import TopicBar from "/src/components/TopicBar/TopicBar.jsx";
-import QASection from "/src/components/QASection/QASection.jsx";
-import DraftSection from "/src/components/DraftSection/DraftSection.jsx";
-import WritingBar from "/src/components/WritingBar/WritingBar.jsx";
+import TopicBar from "../../components/TopicBar/TopicBar.jsx";
+import QASection from "../../components/QASection/QASection.jsx";
+import DraftSection from "../../components/DraftSection/DraftSection.jsx";
+import WritingBar from "../../components/WritingBar/WritingBar.jsx";
 import "./EditPage.scss"
 
 const baseURL = import.meta.env.VITE_BACKEND_URL;

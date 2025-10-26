@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import logoImage from '/src/assets/logos/heart-logo.PNG';
+import logoImage from '../../assets/logos/heart-logo.PNG';
 import "./Header.scss"
 
 function Header() {
