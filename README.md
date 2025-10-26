@@ -3,7 +3,6 @@
 ## Please Read
 - currently non-responsive, please view in desktop mode
 - currently must keep topics as one word/short keywords for research endpoint to fetch a source successfully e.g. "computer" vs "Debuggging a computer program"
-- currently must type the excat word as instructed to work as intended
 
 ## Overview
 
