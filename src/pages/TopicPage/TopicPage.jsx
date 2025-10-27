@@ -80,7 +80,7 @@ function TopicPage() {
       }
     } else {
       setTopic(text);
-      setMessages(prevMessages => [...prevMessages, { text: `You have chosen your topic: "${text}"`, sender: "Nancy" }]);
+      setMessages(prevMessages => [...prevMessages, { text: `You have chosen your topic: "${text}", please click 'Save' to create your blog post.`, sender: "Nancy" }]);
     }
   };
 
