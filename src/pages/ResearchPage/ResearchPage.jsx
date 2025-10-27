@@ -7,15 +7,11 @@ import DraftSection from "../../components/DraftSection/DraftSection.jsx";
 import WritingBar from "../../components/WritingBar/WritingBar.jsx";
 import "./ResearchPage.scss"
 
-const baseURL = import.meta.env.VITE_BACKEND_URL || 
-  (import.meta.env.DEV ? 'http://localhost:8081' : 'https://ai-blog-writing-team-server.onrender.com');
+const baseURL = import.meta.env.VITE_BACKEND_URL;
 
 function ResearchPage() {
-  const { blogId: urlBlogId } = useParams();
+  const { blogId } = useParams();
   const navigate = useNavigate();
-  
-  // Use blogId from URL params, or fallback to localStorage
-  const blogId = urlBlogId || localStorage.getItem("latestBlogId");
 
   const [messages, setMessages] = useState([
     { text: "Hey there! Type 'research' and I can do some digging for you, or just type in your own research.", sender: "Oliver" },
@@ -29,13 +25,10 @@ function ResearchPage() {
   const [_loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("ResearchPage useEffect - blogId:", blogId);
     if (blogId) {
       const fetchBlog = async () => {
         try {
-          console.log("Fetching blog with ID:", blogId);
           const response = await axios.get(`${baseURL}/blog/${blogId}`);
-          console.log("Blog response:", response.data);
           setTopic(response.data.selectedTopic || "No topic selected");
           setBlog({ content: response.data.content || "" });
           localStorage.setItem("latestBlogId", blogId);
@@ -47,10 +40,6 @@ function ResearchPage() {
         }
       };
       fetchBlog();
-    } else {
-      console.log("No blogId provided to ResearchPage");
-      setLoading(false);
-      setMessages(prevMessages => [...prevMessages, { text: "No blog ID provided. Please go back and save your topic first.", sender: "Oliver" }]);
     }
   }, [blogId]);
 

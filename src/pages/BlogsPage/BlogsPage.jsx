@@ -4,8 +4,7 @@ import axios from "axios";
 import BlogCard from "../../components/BlogCard/BlogCard.jsx";
 import "./BlogsPage.scss"
 
-const baseURL = import.meta.env.VITE_BACKEND_URL || 
-  (import.meta.env.DEV ? 'http://localhost:8081' : 'https://ai-blog-writing-team-server.onrender.com');
+const baseURL = import.meta.env.VITE_BACKEND_URL;
 
 function BlogsPage() {  
   const [blogs, setBlogs] = useState([]);

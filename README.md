@@ -1,5 +1,7 @@
 # AI Agent-cy - The AI Blog Writing Team
 
+Deployed at https://aiagentcy.netlify.app/
+
 ## Please Read
 - currently non-responsive, please view in desktop mode
 - currently must keep topics as one word/short keywords for research endpoint to fetch a source successfully e.g. "computer" vs "Debuggging a computer program"

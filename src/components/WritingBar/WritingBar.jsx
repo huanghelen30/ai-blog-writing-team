@@ -1,8 +1,7 @@
 import { useState } from "react";
 import "./WritingBar.scss";
 
-const baseURL = import.meta.env.VITE_BACKEND_URL || 
-  (import.meta.env.DEV ? 'http://localhost:8081' : 'https://ai-blog-writing-team-server.onrender.com');
+const baseURL = import.meta.env.VITE_BACKEND_URL;
 
 function WritingBar({ onSubmitMessage, onBack, onSave, onNext }) {
   const [inputText, setInputText] = useState("");

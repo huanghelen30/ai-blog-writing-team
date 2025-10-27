@@ -7,8 +7,7 @@ import DraftSection from "../../components/DraftSection/DraftSection.jsx";
 import WritingBar from "../../components/WritingBar/WritingBar.jsx";
 import "./WritePage.scss"
 
-const baseURL = import.meta.env.VITE_BACKEND_URL || 
-  (import.meta.env.DEV ? 'http://localhost:8081' : 'https://ai-blog-writing-team-server.onrender.com');
+const baseURL = import.meta.env.VITE_BACKEND_URL;
 
 function WritePage() {
   const { blogId } = useParams();
