@@ -7,7 +7,8 @@ import DraftSection from "../../components/DraftSection/DraftSection.jsx";
 import WritingBar from "../../components/WritingBar/WritingBar.jsx";
 import "./TopicPage.scss";
 
-const baseURL = import.meta.env.VITE_BACKEND_URL;
+const baseURL = import.meta.env.VITE_BACKEND_URL || 
+  (import.meta.env.DEV ? 'http://localhost:8081' : 'https://ai-blog-writing-team-server.onrender.com');
 
 function TopicPage() {
   const { blogId } = useParams();
@@ -96,7 +97,7 @@ function TopicPage() {
         content: blog.content
       });
     
-      const newBlogId = response.data;
+      const newBlogId = response.data.id;
 
       setMessages(prevMessages => [
         ...prevMessages,
@@ -114,7 +115,13 @@ function TopicPage() {
   };
   
   const handleNext = () => {
-    navigate(`/research/${blogId}`);
+    // Use the blogId from URL params, or fallback to localStorage
+    const currentBlogId = blogId || localStorage.getItem("latestBlogId");
+    if (currentBlogId) {
+      navigate(`/research/${currentBlogId}`);
+    } else {
+      setMessages(prevMessages => [...prevMessages, { text: "No blog ID available. Please save your topic first.", sender: "Nancy" }]);
+    }
   };
 
   const renderTopic = loading ? "Waiting for topic..." : topic;
