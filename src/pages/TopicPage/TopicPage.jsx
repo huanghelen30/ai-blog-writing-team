@@ -96,7 +96,8 @@ function TopicPage() {
         content: blog.content
       });
     
-      const newBlogId = response.data;
+      const newBlog = response.data;
+      const newBlogId = newBlog.id;
 
       setMessages(prevMessages => [
         ...prevMessages,
