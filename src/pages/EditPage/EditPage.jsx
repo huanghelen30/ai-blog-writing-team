@@ -98,7 +98,7 @@ const handleSave = async () => {
 };
 
   const handleBack = () => {
-    navigate(`/research/${blogId}`);
+    navigate(`/write/${blogId}`);
   };
 
   const handleNext = () => {

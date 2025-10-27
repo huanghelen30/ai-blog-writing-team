@@ -101,7 +101,7 @@ function TopicPage() {
 
       setMessages(prevMessages => [
         ...prevMessages,
-        { text: `Topic saved: "${topic}". A new blog will be created based on that topic.`, sender: "Nancy" }
+        { text: `Topic saved: "${topic}". A new blog will be created based on that topic, please click 'Save' to create your blog post.`, sender: "Nancy" }
       ]);
       navigate(`/topic/${newBlogId}`);
     } catch (error) {
